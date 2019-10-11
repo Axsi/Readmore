@@ -1,3 +1,9 @@
-#Site-Content{
+body{
+    background-color: white;
+    margin: 0;
+}
 
+#Site-Content{
+    height: 100%;
+    width: 100%;
 }

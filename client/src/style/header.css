@@ -1,0 +1,32 @@
+#Header-Container{
+    width: 100%;
+    position: fixed;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    background-color: #F4F1EA;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#Header-Nav{
+    list-style: none;
+}
+
+#Site-Logo{
+
+}
+
+#Header-New{
+
+}
+
+#Header-Popular{
+
+}
+
+#Header-BestSeller{
+
+}
+
+#Header-BookList{
+
+}

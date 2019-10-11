@@ -1,6 +1,6 @@
 import React from 'react';
 import './style/homepage.css';
-import Header from './header_components/header';
+import Header from './components/header/header';
 
 class HomePage extends React.Component{
     constructor(props){
