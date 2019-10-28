@@ -7,7 +7,11 @@ class NewBooks extends React.Component{
         super(props);
     }
     render(){
-        // return()
+        return(
+            <li id="Header-New">
+                <a id="New-Button">New</a>
+            </li>
+        )
     }
 }
 

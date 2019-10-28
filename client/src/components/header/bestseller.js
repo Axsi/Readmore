@@ -7,7 +7,11 @@ class BestSeller extends React.Component{
         super(props);
     }
     render(){
-        // return()
+        return(
+            <li id="Header-BestSeller">
+                <a id="Best-Button">BestSeller</a>
+            </li>
+        )
     }
 }
 

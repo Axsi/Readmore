@@ -3,30 +3,155 @@
     position: fixed;
     font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
     background-color: #F4F1EA;
-    margin-right: auto;
-    margin-left: auto;
+    height: 50px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 
 #Header-Nav{
     list-style: none;
+    width: 1170px;
+    margin: 0px auto 0px auto;
+    box-sizing: border-box;
+    padding: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+#Header-Nav li{
+    display: flex;
+    padding: 0px 5px 0px 5px;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    line-height: 50px;
+}
+
+#Header-Nav a{
+    /*display: inline-block;*/
+    color: #382110;
+    font-size: 16px;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    cursor: pointer;
+    /*width: 90px;*/
+    text-align: center;
 }
 
 #Site-Logo{
+    padding: 10px 10px 0px 26px !important;
+}
+
+#Site-Title{
+    width: 126px !important;
+}
+
+#Title-Img{
 
 }
 
 #Header-New{
 
 }
+#New-Button{
+    width: 70px;
+}
 
 #Header-Popular{
 
+}
+
+#Popular-Button{
+    width: 95px;
 }
 
 #Header-BestSeller{
 
 }
 
+#Best-Button{
+    width: 115px
+}
+
 #Header-BookList{
 
+}
+
+#Booklist-Button{
+    width: 95px;
+}
+
+#New-Button:hover, #Popular-Button:hover, #Best-Button:hover, #Booklist-Button:hover, #User-Button:hover,
+#Search-Filter:hover{
+    background-color: #382110;
+    color: white !important;
+}
+
+#Header-SearchBar{
+    display: inline-flex !important;
+}
+
+#Search{
+    width: 450px;
+    height: 30px;
+    display:flex;
+    background-color: white;
+    border: 1px solid #DCD6CC;
+    border-radius: 2px;
+}
+
+#Search-Input{
+    color: #5e5e5e;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    border: none;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+    padding-left: 12px;
+}
+
+#Search-Button{
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: white;
+    display:contents;
+}
+
+.Magnify-Icon{
+    padding: 3px;
+}
+
+#Search-Filter{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: none;
+    background-color: #F4F1EA;
+    margin: 0px 0px 0px 4px;
+}
+
+.Filter-Icon{
+    width: 17px;
+    height: 17px;
+    padding-top: 5px;
+}
+
+#Header-UserButton{
+    padding: 0 !important;
+}
+
+#User-Button{
+    /*display: contents;*/
+    cursor: pointer;
+    background-color: #F4F1EA;
+    border: none;
+    height: 50px;
+    width: 65px;
+}
+
+.User-Icon{
+    width: 30px;
+    height: 30px;
+    padding-top: 5px;
 }
