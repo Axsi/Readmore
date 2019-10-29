@@ -1,14 +1,17 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom";
 import '../../style/header.css';
-
+import { connect } from 'react-redux';
+import { filterVisibility } from "../../redux/actions";
 import magnify from '../../assets/mangify.png';
 import filter from '../../assets/funnel.png';
 
 class SearchBar extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
     }
+
+
     render(){
         return(
             <li id="Header-SearchBar">
@@ -18,7 +21,7 @@ class SearchBar extends React.Component{
                         <img className="Magnify-Icon" src={magnify}/>
                     </button>
                 </form>
-                <button id="Search-Filter">
+                <button id="Search-Filter" onClick={this.props.filterClick} >
                     <img className="Filter-Icon" src={filter}/>
                 </button>
             </li>
@@ -26,4 +29,8 @@ class SearchBar extends React.Component{
     }
 }
 
-export default SearchBar;
+const mapDispatchToProps = dispatch =>{
+  return {filterClick: () => dispatch(filterVisibility())}
+};
+//mapped mapDispatchToProps (connects redux actions to react props
+export default connect(null, mapDispatchToProps)(SearchBar);

@@ -8,7 +8,7 @@ class PopularBooks extends React.Component{
     }
     render(){
         return(
-            <li id="Header-Popular">
+            <li>
                 <a id="Popular-Button">Popular</a>
             </li>
         )

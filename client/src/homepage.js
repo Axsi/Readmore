@@ -1,6 +1,7 @@
 import React from 'react';
 import './style/homepage.css';
 import Header from './components/header/header';
+import Filter from './components/filter/filter';
 
 class HomePage extends React.Component{
     constructor(props){
@@ -9,7 +10,10 @@ class HomePage extends React.Component{
     render(){
         return(
             <div id="Site-Content">
-                <Header />
+                <div id="Nav-Holder">
+                    <Header />
+                    <Filter />
+                </div>
             </div>
         )
     }

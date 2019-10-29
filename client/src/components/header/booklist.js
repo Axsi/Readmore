@@ -8,7 +8,7 @@ class BookList extends React.Component{
     }
     render(){
         return(
-            <li id="Header-BookList">
+            <li>
                 <a id="Booklist-Button">Booklist</a>
             </li>
         )

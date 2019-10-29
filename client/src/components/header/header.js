@@ -7,6 +7,7 @@ import NewBooks from './newbooks';
 import PopularBooks from './popularbooks';
 import SearchBar from './searchbar';
 import UserButton from './userbutton';
+
 import TitleImg from '../../assets/title_logo.png';
 
 class Header extends React.Component{

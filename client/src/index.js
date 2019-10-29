@@ -2,13 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Switch, Route, BrowserRouter as Router} from "react-router-dom";
 import HomePage from './homepage';
+import { Provider } from 'react-redux';
+import store from './redux/store/index';
+
 
 const routing = (
-    <Router>
-        <div>
-            <Route exact path="/" component={HomePage}/>
-        </div>
-    </Router>
+    <Provider store={store}>
+        <Router>
+            <div>
+                <Route exact path="/" component={HomePage}/>
+
+            </div>
+        </Router>
+    </Provider>
 );
 
 ReactDOM.render(routing, document.getElementById('root'));
