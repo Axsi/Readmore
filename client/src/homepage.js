@@ -2,6 +2,7 @@ import React from 'react';
 import './style/homepage.css';
 import Header from './components/header/header';
 import Filter from './components/filter/filter';
+import BookGrid from './components/bookgrid/bookgrid';
 
 class HomePage extends React.Component{
     constructor(props){
@@ -14,6 +15,7 @@ class HomePage extends React.Component{
                     <Header />
                     <Filter />
                 </div>
+                <BookGrid />
             </div>
         )
     }

@@ -11,6 +11,8 @@ const db = require('./db');
 
 const path = require('path');
 
+const searchbar = require('./route/search');
+
 app.use(session({
     // store: "",
     secret: 'lobstercat',
@@ -23,6 +25,8 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use('/', searchbar);
 
 app.listen(process.env.PORT || 5000, ()=>{
     console.log("Server is running on http://localhost:5000/")

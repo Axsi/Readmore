@@ -1,8 +1,84 @@
 #Filter-Container{
-    width: 1170px;
-    margin: 0 auto 0 auto;
+    width: 1135px;
+    margin: 3px auto 0 auto;
+    /*background: #f4f1ea;*/
+    height: 40px;
 }
 
 #Filter-Nav{
     /*position: fixed;*/
+    width: 435px;
+    list-style: none;
+    box-sizing: border-box;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    background: #f4f1ea;
+    border-radius: 3px;
+}
+
+#Filter-Nav li{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#Filter-Nav a{
+    cursor: pointer;
+    margin: 0 10px 0 10px;
+    height: 30px;
+    /*width: 120px;*/
+    text-align: center;
+    line-height: 29px;
+    color: #382110;
+    box-sizing: border-box;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-size: 15px;
+
+}
+
+#Genres-Button{
+    border: 1px solid #beb7b3;
+    width: 82px;
+}
+
+#ReleaseYear-Button{
+    border: 1px solid #beb7b3;
+    width: 120px;
+}
+
+#Rating{
+    border: 1px solid #beb7b3;
+    width: 82px;
+}
+
+
+.Filter-Span{
+    margin-right: 5px;
+}
+
+.Chevron-Down{
+    width: 13px;
+    height: 8px;
+}
+
+#Filter-Options-Container:hover{
+    opacity: 60%;
+}
+
+/*#Genres-Button:hover, #ReleaseYear-Button:hover, #Rating:hover{*/
+/*    color: #8c7f76;*/
+/*}*/
+
+#Reset-Filters{
+    height: 30px;
+    width: 80px;
+    border: none;
+    background-color: #f4f1ea;
+    color: #aca49f;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    cursor: pointer;
+    font-size: 14px;
 }

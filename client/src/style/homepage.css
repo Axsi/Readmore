@@ -9,5 +9,6 @@ body{
 }
 
 #Nav-Holder{
-
+    position:fixed;
+    width: 100%;
 }
