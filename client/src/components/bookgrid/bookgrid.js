@@ -10,8 +10,17 @@ class BookGrid extends React.Component{
     }
     render(){
         return(
-            <div>
-
+            <div id="Search-Results">
+                <section id="Grid-Container">
+                    {this.props.books.length > 0 ? this.props.books.map((book)=>(
+                        <article className="Book-Article" key={book['id']+book['etag']}>
+                            <Link to={"/"} className="Book-Link">
+                                <img className="Book-Cover" src={book['volumeInfo']['imageLinks']['thumbnail']}/>
+                            </Link>
+                        </article>
+                        )
+                    ): null}
+                </section>
             </div>
         )
     }

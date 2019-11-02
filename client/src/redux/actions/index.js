@@ -4,10 +4,6 @@ import { FETCH_SEARCH_BEGIN } from "./action-types";
 import { FETCH_SEARCH_SUCCESS } from "./action-types";
 import { FETCH_SEARCH_ERROR } from "./action-types";
 
-const path = require('path');
-// import env from '../../../../.env'
-const env = require('dotenv').config({path: __dirname + '/.env'});
-
 //omitted payload for filterVisibility here
 export function filterVisibility(){
     return {
@@ -45,17 +41,17 @@ export function fetchSearchError(error){
 export function fetchSearchBar(input){
     return dispatch=> {
         dispatch(fetchSearchBegin());
-        console.log("right before fetchSearchBar fetch call");
-        console.log(input);
+        // console.log("right before fetchSearchBar fetch call");
+        // console.log(input);
         //"https://www.googleapis.com/books/v1/volumes?q=isbn:9781101659809&key="+ process.env.GOOGLE_API_KEY
         //"https://www.googleapis.com/books/v1/volumes?q=intitle:"+input+"&filter=partial&printType=books&maxResults=40&key="+process.env.API_KEY
         return fetch("/searchbar/"+input)
             .then(handleErrors)
             .then(res => res.json())
             .then(json =>{
-                dispatch(fetchSearchSuccess(json)); // may have to change how the param is setup here!!!!!!!!!!!!!!!!!!!!!
+                dispatch(fetchSearchSuccess(json.items)); // may have to change how the param is setup here!!!!!!!!!!!!!!!!!!!!!
                 console.log("Inside fetchSearchBar");
-                console.log(json);
+                console.log(json.items);
                 // return json
             }).catch(error => dispatch(fetchSearchError(error)));
     }

@@ -1,0 +1,21 @@
+#Search-Results{
+
+}
+
+#Grid-Container{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /*grid-auto-flow: dense;*/
+}
+
+.Book-Article{
+
+}
+
+.Book-Link{
+
+}
+
+.Book-Cover{
+
+}
