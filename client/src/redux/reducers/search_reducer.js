@@ -1,18 +1,32 @@
 const initialState = {
     searchInput:'',
+    scrollIndex:0,
     books: [],
+    totalBooks: 0,
     loading: false,
     error: null
 };
 
-function searchBarReducer(state = initialState, action){
-    // console.log("inside searchBarReducer");
+function searchReducer(state = initialState, action){
+    // console.log("inside searchReducer");
     // console.log(action);
     switch(action.type){
         case 'SEARCHBAR_INPUT':
             return{
                 ...state,
+                // scrollIndex: 0,
                 searchInput: action.payload
+            };
+        case 'INFINITE_SCROLL_SEARCH':
+            return{
+                ...state,
+                scrollIndex: state.scrollIndex + 40
+            };
+        case 'FRESH_SEARCH':
+            return{
+                ...state,
+                books: [],
+                scrollIndex: 0
             };
         case 'FETCH_SEARCH_BEGIN':
             return {
@@ -24,7 +38,9 @@ function searchBarReducer(state = initialState, action){
             return{
                 ...state,
                 loading: false,
-                books: action.payload
+                books: state.books.concat(action.payload.items),
+                totalBooks: (state.totalBooks !== action.payload.totalItems ?
+                    action.payload.totalItems : state.totalBooks)
             };
         case 'FETCH_SEARCH_ERROR':
             return{
@@ -38,4 +54,4 @@ function searchBarReducer(state = initialState, action){
     }
 }
 
-export default searchBarReducer;
+export default searchReducer;

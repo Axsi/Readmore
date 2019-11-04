@@ -1,8 +1,10 @@
-import { FILTER_VISIBILITY} from "./action-types";
+import { FILTER_VISIBILITY } from "./action-types";
 import { SEARCHBAR_INPUT } from "./action-types";
+import { INFINITE_SCROLL_SEARCH } from "./action-types";
 import { FETCH_SEARCH_BEGIN } from "./action-types";
 import { FETCH_SEARCH_SUCCESS } from "./action-types";
 import { FETCH_SEARCH_ERROR } from "./action-types";
+import { FRESH_SEARCH} from "./action-types";
 
 //omitted payload for filterVisibility here
 export function filterVisibility(){
@@ -15,6 +17,18 @@ export function searchBarInput(payload){
     return {
         type: SEARCHBAR_INPUT,
         payload: payload
+    }
+}
+
+export function freshSearch(){
+    return {
+        type: FRESH_SEARCH
+    }
+}
+
+export function infiniteScrollSearch(){
+    return {
+        type: INFINITE_SCROLL_SEARCH
     }
 }
 
@@ -49,10 +63,27 @@ export function fetchSearchBar(input){
             .then(handleErrors)
             .then(res => res.json())
             .then(json =>{
-                dispatch(fetchSearchSuccess(json.items)); // may have to change how the param is setup here!!!!!!!!!!!!!!!!!!!!!
+                dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems})); // may have to change how the param is setup here!!!!!!!!!!!!!!!!!!!!!
                 console.log("Inside fetchSearchBar");
+                console.log(json);
+                console.log(json.totalItems);
                 console.log(json.items);
                 // return json
+            }).catch(error => dispatch(fetchSearchError(error)));
+    }
+}
+
+export function fetchScroll(info){
+    return dispatch=>{
+        dispatch(fetchSearchBegin());
+        // console.log(info);
+        return fetch("/searchbar/"+info.searchInput+"/"+info.index)
+            .then(handleErrors)
+            .then(res => res.json())
+            .then(json => {
+                dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems}));
+                console.log("Inside fetchScroll");
+                console.log(json);
             }).catch(error => dispatch(fetchSearchError(error)));
     }
 }

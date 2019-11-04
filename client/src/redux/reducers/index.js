@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import generalReducer from './general_reducer';
-import searchBarReducer from './searchbar_reducer';
+import searchReducer from './search_reducer';
 
 // const initialState = {
 //     filterBar: false,
@@ -29,7 +29,7 @@ import searchBarReducer from './searchbar_reducer';
 
 const rootReducer = combineReducers({
     generalReducer,
-    searchBarReducer
+    searchReducer
 });
 
 export default rootReducer;

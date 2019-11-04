@@ -1,15 +1,21 @@
 #Search-Results{
-
+    width: 1170px;
+    margin: 20px auto 0 auto;
 }
 
 #Grid-Container{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    /*grid-template-columns: 200px 200px 200px 200px 200px; // basically does something thing as below*/
+    grid-template-columns: repeat(5, 180px);
     /*grid-auto-flow: dense;*/
+    margin-top: 20px;
+    justify-content: center;
+    grid-gap: 15px;
 }
 
 .Book-Article{
-
+    width: 180px;
+    height: 260px;
 }
 
 .Book-Link{
@@ -17,5 +23,7 @@
 }
 
 .Book-Cover{
-
+    width: 180px;
+    height: 260px;
+    border: 1px solid #4a3d24
 }

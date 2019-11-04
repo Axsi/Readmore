@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, withRouter} from "react-router-dom";
 import '../../style/header.css';
 import { connect } from 'react-redux';
-import {filterVisibility, searchBarInput, fetchSearchBar} from "../../redux/actions";
+import {filterVisibility, searchBarInput, fetchSearchBar, freshSearch} from "../../redux/actions";
 import magnify from '../../assets/mangify.png';
 import filter from '../../assets/funnel.png';
 
@@ -18,6 +18,7 @@ class SearchBar extends React.Component{
         console.log("We are inside handleSearch");
         console.log(this.props.searchInput);
         if(this.props.searchInput !== ''){
+            this.props.fresh();
             this.props.searchBar(this.props.searchInput);
         }
     }
@@ -42,7 +43,7 @@ class SearchBar extends React.Component{
                     </button>
                 </form>
                 <button id="Search-Filter" onClick={this.props.filterClick} >
-                    <img className="Filter-Icon" src={filter}/>
+                    <img className="Filter-Icon" src={filter} />
                 </button>
             </li>
         )
@@ -52,7 +53,7 @@ class SearchBar extends React.Component{
 //im not sure if this works actually or if its even necessary... so mapdispatch searchChange takes event.target.value and changes the state in the reducer, but does it really? need another page to check
 const mapStateToProps = (state) =>{
     return {
-        searchInput: state.searchBarReducer.searchInput
+        searchInput: state.searchReducer.searchInput
     }
 };
 
@@ -60,7 +61,8 @@ const mapDispatchToProps = dispatch =>{
   return {
       filterClick: () => dispatch(filterVisibility()),
       searchChange: (event)=> dispatch(searchBarInput(event)),
-      searchBar: (event) => dispatch(fetchSearchBar(event))
+      searchBar: (event) => dispatch(fetchSearchBar(event)),
+      fresh: () => dispatch(freshSearch())
   }
 };
 
