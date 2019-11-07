@@ -1,10 +1,13 @@
-import { FILTER_VISIBILITY } from "./action-types";
-import { SEARCHBAR_INPUT } from "./action-types";
-import { INFINITE_SCROLL_SEARCH } from "./action-types";
-import { FETCH_SEARCH_BEGIN } from "./action-types";
-import { FETCH_SEARCH_SUCCESS } from "./action-types";
-import { FETCH_SEARCH_ERROR } from "./action-types";
-import { FRESH_SEARCH} from "./action-types";
+import {
+    FILTER_VISIBILITY,
+    SEARCHBAR_INPUT,
+    INFINITE_SCROLL_SEARCH,
+    FETCH_SEARCH_BEGIN,
+    FETCH_SEARCH_SUCCESS,
+    FETCH_SEARCH_ERROR,
+    FRESH_SEARCH,
+    IMAGE_LOAD} from "./action-types";
+
 
 //omitted payload for filterVisibility here
 export function filterVisibility(){
@@ -23,6 +26,13 @@ export function searchBarInput(payload){
 export function freshSearch(){
     return {
         type: FRESH_SEARCH
+    }
+}
+
+export function imageLoad(payload){
+    return {
+        type: IMAGE_LOAD,
+        payload: payload
     }
 }
 
@@ -64,10 +74,10 @@ export function fetchSearchBar(input){
             .then(res => res.json())
             .then(json =>{
                 dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems})); // may have to change how the param is setup here!!!!!!!!!!!!!!!!!!!!!
-                console.log("Inside fetchSearchBar");
-                console.log(json);
-                console.log(json.totalItems);
-                console.log(json.items);
+                // console.log("Inside fetchSearchBar");
+                // console.log(json);
+                // console.log(json.totalItems);
+                // console.log(json.items);
                 // return json
             }).catch(error => dispatch(fetchSearchError(error)));
     }
@@ -82,8 +92,8 @@ export function fetchScroll(info){
             .then(res => res.json())
             .then(json => {
                 dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems}));
-                console.log("Inside fetchScroll");
-                console.log(json);
+                // console.log("Inside fetchScroll");
+                // console.log(json);
             }).catch(error => dispatch(fetchSearchError(error)));
     }
 }

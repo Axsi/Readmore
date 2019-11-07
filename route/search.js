@@ -10,7 +10,6 @@ router.get('/searchbar/:input/:index?', function(req, res){
     // console.log(req.params.index);
     // console.log(req.params);
     let query = '';
-    //&startIndex=40
     if(req.params.index === undefined){
         query = "https://www.googleapis.com/books/v1/volumes?q=intitle:"+req.params.input+"&filter=partial&printType=books&maxResults=40&key="+process.env.API_KEY
     }else{
@@ -25,20 +24,19 @@ router.get('/searchbar/:input/:index?', function(req, res){
                 let books = data.items;
                 for(let i = 0; i < keys.length; i++){
                     //TODO:Issue where sometimes thumbnail might not exist in the return fetch, it seems setting filter=partial, will avoid those books
-                    //console.log(books[i]['volumeInfo']['imageLinks']['thumbnail']);
-                    // if(books[i]['volumeInfo']['imageLinks']){
-                    //     if(books[i]['volumeInfo']['imageLinks']['thumbnail']){
+                    if(books[i]['volumeInfo']['imageLinks']){
                             let q = queryString.parseUrl(books[i]['volumeInfo']['imageLinks']['thumbnail']);
-                            // .query['zoom'];
                             q.query.zoom = '2';
                             // console.log(q);
-                            // console.log(queryString.stringify(q));
-                            books[i]['volumeInfo']['imageLinks']['thumbnail'] =
-                                q.url+'?'+'id='+q.query.id+'&printsec='+q.query.printsec+'&img='+q.query.img+'&zoom='+
-                                q.query.zoom+'&edge='+q.query.edge+'&source='+q.query.source;
-                            // console.log(books[i]['volumeInfo']['imageLinks']['thumbnail']);
-                        // }
-                    // }
+                            // console.log(queryString.stringify(q.query));
+
+                            books[i]['volumeInfo']['imageLinks']['thumbnail'] = q.url+'?'+queryString.stringify(q.query);
+                            //BELOW CODE WORKS THE SAME AS ABOVE LINE***
+                            // books[i]['volumeInfo']['imageLinks']['thumbnail'] =
+                            //     q.url+'?'+'id='+q.query.id+'&printsec='+q.query.printsec+'&img='+q.query.img+'&zoom='+
+                            //     q.query.zoom+'&edge='+q.query.edge+'&source='+q.query.source;
+
+                    }
                 }
             res.status(200).json(data);
         }).catch(function(err){

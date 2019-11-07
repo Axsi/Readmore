@@ -4,6 +4,8 @@ const initialState = {
     books: [],
     totalBooks: 0,
     loading: false,
+    imageLoading: false,
+    // scrollLoading: false,
     error: null
 };
 
@@ -21,6 +23,11 @@ function searchReducer(state = initialState, action){
             return{
                 ...state,
                 scrollIndex: state.scrollIndex + 40
+            };
+        case 'IMAGE_LOAD':
+            return{
+              ...state,
+              imageLoading: action.payload
             };
         case 'FRESH_SEARCH':
             return{

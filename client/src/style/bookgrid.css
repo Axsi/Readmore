@@ -18,6 +18,10 @@
     height: 260px;
 }
 
+/*.Hide-Books{*/
+/*    display: none;*/
+/*}*/
+
 .Book-Link{
 
 }
@@ -25,5 +29,19 @@
 .Book-Cover{
     width: 180px;
     height: 260px;
-    border: 1px solid #4a3d24
+    border: 1px solid #4a3d24;
+    animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0;}
+    to {opacity: 1;}
+}
+.Spinner{
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
 }
