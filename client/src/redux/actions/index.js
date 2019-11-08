@@ -6,7 +6,8 @@ import {
     FETCH_SEARCH_SUCCESS,
     FETCH_SEARCH_ERROR,
     FRESH_SEARCH,
-    IMAGE_LOAD} from "./action-types";
+    IMAGE_LOAD,
+    BEST_SELLER_NYT} from "./action-types";
 
 
 //omitted payload for filterVisibility here
@@ -95,6 +96,18 @@ export function fetchScroll(info){
                 // console.log("Inside fetchScroll");
                 // console.log(json);
             }).catch(error => dispatch(fetchSearchError(error)));
+    }
+}
+
+export function bestSeller(){
+    return dispatch=>{
+        dispatch(fetchSearchBegin());
+        return fetch("/bestseller")
+            .then(handleErrors)
+            .then(res=> res.json())
+            .then(json => {
+
+            })
     }
 }
 

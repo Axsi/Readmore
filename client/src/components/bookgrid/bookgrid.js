@@ -4,7 +4,7 @@ import '../../style/bookgrid.css';
 import { connect } from 'react-redux';
 import { infiniteScrollSearch, fetchScroll, imageLoad} from "../../redux/actions";
 import CircleLoader from 'react-spinners/CircleLoader';
-import {css} from "@emotion/core";
+// import {css} from "@emotion/core";
 
 class BookGrid extends React.Component{
     constructor(props){
@@ -43,7 +43,7 @@ class BookGrid extends React.Component{
             (book['volumeInfo']['imageLinks'] ?
                 <article className="Book-Article" key={book['id']+book['etag']}>
                     <Link to={"/"} className="Book-Link">
-                        <img className="Book-Cover" src={book['volumeInfo']['imageLinks']['thumbnail']}
+                        <img className="Book-Cover" src={book['volumeInfo']['imageLinks']['smallThumbnail']}
                              onLoad={this.imageStatus}/>
                     </Link>
                 </article>

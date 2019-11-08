@@ -22,7 +22,7 @@ function searchReducer(state = initialState, action){
         case 'INFINITE_SCROLL_SEARCH':
             return{
                 ...state,
-                scrollIndex: state.scrollIndex + 40
+                scrollIndex: state.scrollIndex + 36
             };
         case 'IMAGE_LOAD':
             return{
