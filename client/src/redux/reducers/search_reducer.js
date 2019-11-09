@@ -2,6 +2,7 @@ const initialState = {
     searchInput:'',
     scrollIndex:0,
     books: [],
+    // bestSeller:[],
     totalBooks: 0,
     loading: false,
     imageLoading: false,

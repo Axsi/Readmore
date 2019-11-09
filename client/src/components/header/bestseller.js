@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, withRouter} from "react-router-dom";
 import '../../style/header.css';
+import { connect } from "react-redux";
+import { bestSeller, freshSearch, imageLoad} from "../../redux/actions";
 
 class BestSeller extends React.Component{
     constructor(props){
@@ -10,6 +12,9 @@ class BestSeller extends React.Component{
     handleBestSeller(event){
         event.preventDefault();
         console.log("clicked bestseller button");
+        this.props.fresh();
+        this.props.imageLoad(true);
+        this.props.bestSeller();
     }
     render(){
         return(
@@ -20,4 +25,11 @@ class BestSeller extends React.Component{
     }
 }
 
-export default BestSeller;
+const mapDispatchToProps = dispatch => {
+    return {
+        bestSeller: () => dispatch(bestSeller()),
+        fresh: () => dispatch(freshSearch()),
+        imageLoad: (status) => dispatch(imageLoad(status))
+    }
+};
+export default connect(null, mapDispatchToProps)(BestSeller);

@@ -74,6 +74,8 @@ export function fetchSearchBar(input){
             .then(handleErrors)
             .then(res => res.json())
             .then(json =>{
+                // console.log("searchbar results");
+                // console.log(json);
                 dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems})); // may have to change how the param is setup here!!!!!!!!!!!!!!!!!!!!!
                 // console.log("Inside fetchSearchBar");
                 // console.log(json);
@@ -99,6 +101,7 @@ export function fetchScroll(info){
     }
 }
 
+//action that calls the fetch to nyt api
 export function bestSeller(){
     return dispatch=>{
         dispatch(fetchSearchBegin());
@@ -106,11 +109,55 @@ export function bestSeller(){
             .then(handleErrors)
             .then(res=> res.json())
             .then(json => {
+                promiseItems(json.results.books).then(data=>{
+                    // console.log("Inside bestSeller");
+                    // console.log(data);
+                    //loop below fixes structure of return due to multiple calls brought into one array
+                    let arr = [];
+                    for(let i = 0 ; i < 15; i++){
+                        arr.push(data[i].items[0]);
+                    }
+                    console.log(arr);
+                    // console.log(total);
+                    dispatch(fetchSearchSuccess({items: arr, totalItems: 0}))
+                }).catch(error => {
+                    console.log(error);
+                    dispatch(fetchSearchError(error));
+                })
+                // dispatch(fetchSearchSuccess({items: json.results.books}))
 
             })
     }
 }
 
+//function that loops and calls google books with nyt response
+function promiseItems(arr){
+    // console.log("inside promiseItems");
+    // console.log(arr);
+    //if any of the promises fail, promise.all fails as a whole
+    return Promise.all(arr.map(function(book){
+        return new Promise(function(resolve,reject){
+            //I would say do fetchSearchSuccess after you've gotten the data you need from google books
+            // console.log(book);
+            // console.log(book['isbns'][0]['isbn13']);
+            let info = "intitle:"+book['title']+"+inauthor:"+book['author'];
+            // console.log("what is info");
+            // console.log(info);
+            fetch('/bestseller-cover/'+info)
+                .then(handleErrors)
+                .then(res=> res.json())
+                .then(json=>{
+                    // console.log(json);
+                    console.log("hi");
+                    resolve(json);
+                }).catch(error => {
+                    console.log(error);
+                    reject(error);
+            })
+
+        })
+    }))
+}
 //For handling HTTP errors, fetch doesnt?
 //currently errors are not being used anywhere with fetchSearchError, apparently we have to render them in component or console.log them there??
 function handleErrors(response){
