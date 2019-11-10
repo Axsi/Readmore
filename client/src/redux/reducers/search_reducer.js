@@ -1,5 +1,8 @@
 const initialState = {
     searchInput:'',
+    subject:'fiction',
+    orderBy: 'newest',
+    language: 'en',
     scrollIndex:0,
     books: [],
     // bestSeller:[],
@@ -34,7 +37,16 @@ function searchReducer(state = initialState, action){
             return{
                 ...state,
                 books: [],
-                scrollIndex: 0
+                scrollIndex: 0,
+                orderBy:'relevance'
+            };
+        case 'ORDER_BY_NEW':
+            return{
+                ...state,
+                orderBy: 'newest',
+                books: [],
+                scrollIndex: 0,
+                subject: 'fiction'
             };
         case 'FETCH_SEARCH_BEGIN':
             return {

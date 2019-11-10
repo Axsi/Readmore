@@ -7,7 +7,9 @@ import {
     FETCH_SEARCH_ERROR,
     FRESH_SEARCH,
     IMAGE_LOAD,
-    BEST_SELLER_NYT} from "./action-types";
+    // BEST_SELLER_NYT,
+    ORDER_BY_NEW
+} from "./action-types";
 
 
 //omitted payload for filterVisibility here
@@ -29,7 +31,11 @@ export function freshSearch(){
         type: FRESH_SEARCH
     }
 }
-
+export function orderByNew(){
+    return {
+        type: ORDER_BY_NEW
+    }
+}
 export function imageLoad(payload){
     return {
         type: IMAGE_LOAD,
@@ -70,7 +76,7 @@ export function fetchSearchBar(input){
         // console.log(input);
         //"https://www.googleapis.com/books/v1/volumes?q=isbn:9781101659809&key="+ process.env.GOOGLE_API_KEY
         //"https://www.googleapis.com/books/v1/volumes?q=intitle:"+input+"&filter=partial&printType=books&maxResults=40&key="+process.env.API_KEY
-        return fetch("/searchbar/"+input)
+        return fetch("/searchbar/"+input.searchInput+"/"+input.language)
             .then(handleErrors)
             .then(res => res.json())
             .then(json =>{
@@ -89,8 +95,10 @@ export function fetchSearchBar(input){
 export function fetchScroll(info){
     return dispatch=>{
         dispatch(fetchSearchBegin());
+        // console.log("inside fetchScroll");
         // console.log(info);
-        return fetch("/searchbar/"+info.searchInput+"/"+info.index)
+        return fetch("/scroll/"+info.searchInput+"/"+info.index+"/"+info.subject+"/"+info.orderBy+"/"+
+            info.language)
             .then(handleErrors)
             .then(res => res.json())
             .then(json => {
@@ -98,6 +106,18 @@ export function fetchScroll(info){
                 // console.log("Inside fetchScroll");
                 // console.log(json);
             }).catch(error => dispatch(fetchSearchError(error)));
+    }
+}
+export function newBooks(info){
+    return dispatch=>{
+        dispatch(fetchSearchBegin());
+        return fetch("/newbooks/"+info.subject+"/"+info.orderBy+"/"+info.language)
+            .then(handleErrors)
+            .then(res=> res.json())
+            .then(json=>{
+                dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems}));
+
+            }).catch(error=>dispatch(fetchSearchError(error)));
     }
 }
 

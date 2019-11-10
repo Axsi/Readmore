@@ -33,7 +33,12 @@ class BookGrid extends React.Component{
             //do next fetch here?
             this.props.infiniteScroll();
             // this.props.imageLoad(true);
-            this.props.scroll({searchInput: this.props.searchInput, index: this.props.index});
+            this.props.scroll({
+                searchInput: this.props.searchInput,
+                index: this.props.index,
+                subject: this.props.subject,
+                orderBy: this.props.orderBy,
+                language: this.props.language});
             // console.log("HI THE FETCH SHOULD START HERE!");
         }
     };
@@ -112,9 +117,12 @@ const mapStateToProps = (state) =>{
     return {
         books: state.searchReducer.books,
         totalBooks: state.searchReducer.totalBooks,
-        index: state.searchReducer.scrollIndex,
         loading: state.searchReducer.loading,
         searchInput: state.searchReducer.searchInput,
+        index: state.searchReducer.scrollIndex,
+        subject: state.searchReducer.subject,
+        orderBy: state.searchReducer.orderBy,
+        language: state.searchReducer.language,
         imageLoading: state.searchReducer.imageLoading,
         // scrollLoading: state.searchReducer.scrollLoading
     }

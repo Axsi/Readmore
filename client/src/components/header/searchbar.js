@@ -20,7 +20,9 @@ class SearchBar extends React.Component{
         if(this.props.searchInput !== ''){
             this.props.fresh();
             this.props.imageLoad(true);
-            this.props.searchBar(this.props.searchInput);
+            this.props.searchBar({
+                searchInput:this.props.searchInput,
+                language: this.props.language });
         }
     }
 
@@ -54,7 +56,8 @@ class SearchBar extends React.Component{
 //im not sure if this works actually or if its even necessary... so mapdispatch searchChange takes event.target.value and changes the state in the reducer, but does it really? need another page to check
 const mapStateToProps = (state) =>{
     return {
-        searchInput: state.searchReducer.searchInput
+        searchInput: state.searchReducer.searchInput,
+        language: state.searchReducer.language
     }
 };
 
@@ -62,7 +65,7 @@ const mapDispatchToProps = dispatch =>{
   return {
       filterClick: () => dispatch(filterVisibility()),
       searchChange: (event)=> dispatch(searchBarInput(event)),
-      searchBar: (event) => dispatch(fetchSearchBar(event)),
+      searchBar: (info) => dispatch(fetchSearchBar(info)),
       fresh: () => dispatch(freshSearch()),
       imageLoad: (status) => dispatch(imageLoad(status))
   }
