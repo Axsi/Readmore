@@ -34,11 +34,11 @@ router.get('/scroll/:input?/:index/:subject/:orderBy/:language', function(req, r
     if(req.params.orderBy === 'newest'){
         // console.log("BYE");
         query = "https://www.googleapis.com/books/v1/volumes?q=subject:"+req.params.subject+"&orderBy="+req.params.orderBy+"&filter=partial&langRestrict=" +req.params.language+"&printType=books&startIndex="+req.params.index+"&maxResults=36&key="+process.env.API_KEY;
-        console.log(query);
+        // console.log(query);
     }else{
         // console.log("HI");
         query = "https://www.googleapis.com/books/v1/volumes?q=intitle:"+req.params.input+"&filter=partial&langRestrict="+req.params.language+"&printType=books&startIndex="+req.params.index+"&maxResults=36&key="+process.env.API_KEY;
-        console.log(query);
+        // console.log(query);
     }
     fetch(query)
         .then(res => res.json())

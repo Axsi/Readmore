@@ -20,7 +20,8 @@ class NewBooks extends React.Component{
         this.props.newBooks({
             subject: this.props.subject,
             orderBy: this.props.orderBy,
-            language: this.props.language});
+            language: this.props.language
+        });
     }
     render(){
         return(

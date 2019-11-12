@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import '../../style/bookgrid.css';
 import { connect } from 'react-redux';
-import { infiniteScrollSearch, fetchScroll, imageLoad} from "../../redux/actions";
+import { infiniteScrollSearch, fetchScroll, imageLoad, newBooks} from "../../redux/actions";
 import CircleLoader from 'react-spinners/CircleLoader';
 // import {css} from "@emotion/core";
 
@@ -17,6 +17,13 @@ class BookGrid extends React.Component{
     }
     componentDidMount() {
         window.addEventListener('scroll', this.onScroll, false);
+        this.props.imageLoad(true);
+        this.props.newBooks({
+            subject: this.props.subject,
+            orderBy: this.props.orderBy,
+            language: this.props.language
+        })
+
     }
 
     componentWillUnmount() {
@@ -132,7 +139,8 @@ const mapDispatchToProps = dispatch =>{
     return {
         infiniteScroll: () => dispatch(infiniteScrollSearch()),
         scroll: (info) => dispatch(fetchScroll(info)),
-        imageLoad: (status) => dispatch(imageLoad(status))
+        imageLoad: (status) => dispatch(imageLoad(status)),
+        newBooks: (info) => dispatch(newBooks(info))
     }
 
 };
