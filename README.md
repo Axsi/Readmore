@@ -1,5 +1,5 @@
 # Readmore
-Readmore is my attempt at making a place to discover new books to read. **Currently this project is not done and is being
+Readmore is my attempt at making a place to discover new books to read and is influenced by GoodReads. **Currently this project is not done and is being
 worked on, there may be changes to the features**.
 
 ## Screenshot
