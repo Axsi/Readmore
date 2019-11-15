@@ -7,6 +7,8 @@ import NewBooks from './newbooks';
 import PopularBooks from './popularbooks';
 import SearchBar from './searchbar';
 import UserButton from './userbutton';
+import { connect } from 'react-redux';
+import { orderByNew} from "../../redux/actions";
 
 import TitleImg from '../../assets/title_logo.png';
 
@@ -19,7 +21,8 @@ class Header extends React.Component{
             <div id="Header-Container">
                 <ul id="Header-Nav">
                     <li id="Site-Logo">
-                        <Link to={{pathname: "/"}} id="Site-Title">
+                        <Link to={{pathname: "/"}} id="Site-Title"
+                              onClick={orderByNew({genre:'fiction', headerSelection: 'New'})}>
                             <img id="Title-Img" src={TitleImg}/>
                         </Link>
                     </li>
@@ -35,4 +38,10 @@ class Header extends React.Component{
     }
 }
 
-export default Header;
+const mapDispatchToProps = dispatch =>{
+    return {
+        orderByNew: (info)=> dispatch(orderByNew(info))
+    }
+};
+
+export default connect(null, mapDispatchToProps)(Header);

@@ -12,24 +12,30 @@ class BestSeller extends React.Component{
     handleBestSeller(event){
         event.preventDefault();
         console.log("clicked bestseller button");
-        this.props.fresh();
+        this.props.fresh({headerSelection: event.target.text});
         this.props.imageLoad(true);
         this.props.bestSeller();
     }
     render(){
         return(
             <li>
-                <a id="Best-Button" onClick={this.handleBestSeller}>BestSeller</a>
+                <a id="Best-Button" onClick={this.handleBestSeller} className={this.props.headerSelection ===
+                'BestSeller' ? "Header-Selection": null}>BestSeller</a>
             </li>
         )
     }
 }
 
+const mapStateToProps = (state)=>{
+    return{
+        headerSelection: state.searchReducer.headerSelection
+    }
+};
 const mapDispatchToProps = dispatch => {
     return {
         bestSeller: () => dispatch(bestSeller()),
-        fresh: () => dispatch(freshSearch()),
+        fresh: (selection) => dispatch(freshSearch(selection)),
         imageLoad: (status) => dispatch(imageLoad(status))
     }
 };
-export default connect(null, mapDispatchToProps)(BestSeller);
+export default connect(mapStateToProps, mapDispatchToProps)(BestSeller);

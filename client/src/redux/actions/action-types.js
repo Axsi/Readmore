@@ -8,3 +8,4 @@ export const FETCH_SEARCH_ERROR = 'FETCH_SEARCH_ERROR';
 export const IMAGE_LOAD = 'IMAGE_LOAD';
 // export const BEST_SELLER_NYT = 'BEST_SELLER_NYT';
 export const ORDER_BY_NEW ='ORDER_BY_NEW';
+// export const HEADER_SELECTION = 'HEADER_SELECTION';

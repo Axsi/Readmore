@@ -20,7 +20,8 @@ class BookGrid extends React.Component{
         this.props.imageLoad(true);
         this.props.newBooks({
             subject: this.props.subject,
-            orderBy: this.props.orderBy,
+            orderBy: 'newest',
+            // orderBy: this.props.orderBy,
             language: this.props.language
         })
 
@@ -131,6 +132,7 @@ const mapStateToProps = (state) =>{
         orderBy: state.searchReducer.orderBy,
         language: state.searchReducer.language,
         imageLoading: state.searchReducer.imageLoading,
+        headerSelection: state.searchReducer.headerSelection
         // scrollLoading: state.searchReducer.scrollLoading
     }
 };

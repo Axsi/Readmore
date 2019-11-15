@@ -8,7 +8,8 @@ import {
     FRESH_SEARCH,
     IMAGE_LOAD,
     // BEST_SELLER_NYT,
-    ORDER_BY_NEW
+    ORDER_BY_NEW,
+    HEADER_SELECTION
 } from "./action-types";
 
 
@@ -26,14 +27,16 @@ export function searchBarInput(payload){
     }
 }
 
-export function freshSearch(){
+export function freshSearch(payload){
     return {
-        type: FRESH_SEARCH
+        type: FRESH_SEARCH,
+        payload: payload
     }
 }
-export function orderByNew(){
+export function orderByNew(payload){
     return {
-        type: ORDER_BY_NEW
+        type: ORDER_BY_NEW,
+        payload: payload
     }
 }
 export function imageLoad(payload){

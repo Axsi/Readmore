@@ -18,7 +18,7 @@ class SearchBar extends React.Component{
         // console.log("We are inside handleSearch");
         // console.log(this.props.searchInput);
         if(this.props.searchInput !== ''){
-            this.props.fresh();
+            this.props.fresh({headerSelection: ''});
             this.props.imageLoad(true);
             this.props.searchBar({
                 searchInput:this.props.searchInput,
@@ -66,7 +66,7 @@ const mapDispatchToProps = dispatch =>{
       filterClick: () => dispatch(filterVisibility()),
       searchChange: (event)=> dispatch(searchBarInput(event)),
       searchBar: (info) => dispatch(fetchSearchBar(info)),
-      fresh: () => dispatch(freshSearch()),
+      fresh: (selection) => dispatch(freshSearch(selection)),
       imageLoad: (status) => dispatch(imageLoad(status))
   }
 };

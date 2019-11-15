@@ -14,7 +14,7 @@ class NewBooks extends React.Component{
         event.preventDefault();
         console.log("clicked handle new books");
         // this.props.fresh();
-        this.props.orderByNew();
+        this.props.orderByNew({genre: 'fiction', headerSelection: event.target.text});
         console.log(this.props.orderBy);
         this.props.imageLoad(true);
         this.props.newBooks({
@@ -26,7 +26,8 @@ class NewBooks extends React.Component{
     render(){
         return(
             <li>
-                <a id="New-Button" onClick={this.handleNewBooks}>New</a>
+                <a id="New-Button" onClick={this.handleNewBooks} className={this.props.headerSelection === 'New' ?
+                    "Header-Selection" : null}>New</a>
             </li>
         )
     }
@@ -35,7 +36,8 @@ const mapStateToProps = (state) => {
     return {
         subject: state.searchReducer.subject,
         orderBy: state.searchReducer.orderBy,
-        language: state.searchReducer.language
+        language: state.searchReducer.language,
+        headerSelection: state.searchReducer.headerSelection
     }
 };
 
@@ -44,7 +46,7 @@ const mapDispatchToProps = dispatch => {
         newBooks: (info)=> dispatch(newBooks(info)),
         // fresh: ()=> dispatch(freshSearch()),
         imageLoad: (status) => dispatch(imageLoad(status)),
-        orderByNew: ()=> dispatch(orderByNew())
+        orderByNew: (info)=> dispatch(orderByNew(info))
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NewBooks);
