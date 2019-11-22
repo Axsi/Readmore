@@ -6,19 +6,10 @@ const queryString = require('query-string');
 // const Jimp = require('jimp');
 
 router.get('/searchbar/:input/:language', function(req, res){
-    // console.log("Inside searchbar router");
-    // console.log(req.params.input);
-    // console.log(req.params.index);
-    // console.log(req.params);
-
     fetch("https://www.googleapis.com/books/v1/volumes?q=intitle:"+req.params.input+"&filter=partial&langRestrict=" +
         req.params.language+"&printType=books&maxResults=36&key="+process.env.API_KEY)
         .then(res => res.json())
             .then( data =>{
-                // console.log("searchbar result");
-                // console.log(data);
-            // console.log("inside fetch of router.get");
-            // console.log(data);
             res.status(200).json(generalSearch(data));
             }).catch(function(err){
             console.log(err);
@@ -28,8 +19,6 @@ router.get('/searchbar/:input/:language', function(req, res){
 });
 
 router.get('/releaseyear/:year/:month', function(req, res){
-    // console.log("HM?");
-    // console.log( req.params);
     let month = '';
     if(req.params.month < 10){
         month = '0'+req.params.month;
@@ -47,17 +36,11 @@ router.get('/releaseyear/:year/:month', function(req, res){
 });
 
 router.get('/scroll/:input?/:index/:subject/:orderBy/:language', function(req, res){
-    // console.log("inside scroll router");
-    // console.log(req.params);
     let query = '';
     if(req.params.orderBy === 'newest'){
-        // console.log("BYE");
         query = "https://www.googleapis.com/books/v1/volumes?q=subject:"+req.params.subject+"&orderBy="+req.params.orderBy+"&filter=partial&langRestrict=" +req.params.language+"&printType=books&startIndex="+req.params.index+"&maxResults=36&key="+process.env.API_KEY;
-        // console.log(query);
     }else{
-        // console.log("HI");
         query = "https://www.googleapis.com/books/v1/volumes?q=intitle:"+req.params.input+"&filter=partial&langRestrict="+req.params.language+"&printType=books&startIndex="+req.params.index+"&maxResults=36&key="+process.env.API_KEY;
-        // console.log(query);
     }
     fetch(query)
         .then(res => res.json())
@@ -72,13 +55,9 @@ router.get('/scroll/:input?/:index/:subject/:orderBy/:language', function(req, r
 });
 
 router.get('/newbooks/:subject/:orderBy/:language', function(req, res){
-    // console.log("newbooks router.get before the fetch");
-    // console.log(req.params);
     fetch("https://www.googleapis.com/books/v1/volumes?q=subject:"+req.params.subject+"&orderBy=newest&filter=partial&langRestrict="+req.params.language+"&printType=books&maxResults=36&key="+process.env.API_KEY)
         .then(res=> res.json())
         .then(data =>{
-            // console.log("inside newbooks router.get");
-            // console.log(data);
             res.status(200).json(generalSearch(data));
         }).catch(function(err){
             console.log(err);
@@ -87,7 +66,6 @@ router.get('/newbooks/:subject/:orderBy/:language', function(req, res){
 });
 
 router.get('/bestseller', function(req, res){
-    // console.log("inside bestseller");
     fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key='+process.env.NYT_KEY)
         .then(res => res.json())
         .then( data=>{
@@ -99,14 +77,14 @@ router.get('/bestseller', function(req, res){
 });
 
 router.get('/bestseller-cover/:info', function(req, res){
-    console.log("inside bestseller-cover");
-    console.log(req.params.info);
+    // console.log("inside bestseller-cover");
+    // console.log(req.params.info);
     fetch("https://www.googleapis.com/books/v1/volumes?q="+req.params.info+"&maxResults=1&key="+process.env.API_KEY)
         .then(res => res.json())
         .then(data => {
             // console.log("within bestseller-cover/isbn");
             // console.log(data);
-            res.status(200).json(generalSearch(data));
+                res.status(200).json(generalSearch(data));
         }).catch(err =>{
             console.log(err);
             res.sendStatus(404);
@@ -118,12 +96,12 @@ function generalSearch(data){
     if(data.totalItems > 0){
     let keys = Object.keys(data.items);
     let books = data.items;
-    // console.log(books);
+        console.log("generalSearch");
     for(let i = 0; i < keys.length; i++){
+        // console.log(books[i]['volumeInfo']['imageLinks']);
         //TODO:Issue where sometimes thumbnail might not exist in the return fetch, it seems setting filter=partial, will avoid those books
-
             if (books[i]['volumeInfo']['imageLinks']) {
-
+                console.log(books[i]['volumeInfo']['imageLinks']);
                 let q = queryString.parseUrl(books[i]['volumeInfo']['imageLinks']['thumbnail']);
                 q.query.zoom = '2';
                 books[i]['volumeInfo']['imageLinks']['thumbnail'] = q.url + '?' + queryString.stringify(q.query);

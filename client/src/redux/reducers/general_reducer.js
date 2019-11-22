@@ -9,11 +9,6 @@ function generalReducer(state = initialState, action){
                 ...state,
                 filterBar: !state.filterBar
             };
-        // case 'HEADER_SELECTION':
-        //     return{
-        //       ...state,
-        //       headerSelection: action.payload
-        //     };
         default:
             return state;
     }

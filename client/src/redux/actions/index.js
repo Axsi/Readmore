@@ -74,22 +74,11 @@ export function fetchSearchError(error){
 export function fetchSearchBar(input){
     return dispatch=> {
         dispatch(fetchSearchBegin());
-        // console.log("right before fetchSearchBar fetch call");
-        // console.log(input);
-        //"https://www.googleapis.com/books/v1/volumes?q=isbn:9781101659809&key="+ process.env.GOOGLE_API_KEY
-        //"https://www.googleapis.com/books/v1/volumes?q=intitle:"+input+"&filter=partial&printType=books&maxResults=40&key="+process.env.API_KEY
         return fetch("/searchbar/"+input.searchInput+"/"+input.language)
             .then(handleErrors)
             .then(res => res.json())
             .then(json =>{
-                // console.log("searchbar results");
-                // console.log(json);
                 dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems})); // may have to change how the param is setup here!!!!!!!!!!!!!!!!!!!!!
-                // console.log("Inside fetchSearchBar");
-                // console.log(json);
-                // console.log(json.totalItems);
-                // console.log(json.items);
-                // return json
             }).catch(error => dispatch(fetchSearchError(error)));
     }
 }
@@ -143,8 +132,6 @@ export function newBooks(info){
             .then(handleErrors)
             .then(res=> res.json())
             .then(json=>{
-                console.log("RETURN");
-                console.log(json);
                 dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems}));
 
             }).catch(error=>dispatch(fetchSearchError(error)));
@@ -160,15 +147,13 @@ export function bestSeller(){
             .then(res=> res.json())
             .then(json => {
                 promiseItems(json.results.books).then(data=>{
-                    // console.log("Inside bestSeller");
-                    // console.log(data);
                     //loop below fixes structure of return due to multiple calls brought into one array
                     let arr = [];
                     for(let i = 0 ; i < data.length; i++){
-                        arr.push(data[i].items[0]);
+                        console.log(i);
+                            console.log(data[i].items[0]);
+                            arr.push(data[i].items[0]);
                     }
-                    // console.log(arr);
-                    // console.log(total);
                     dispatch(fetchSearchSuccess({items: arr, totalItems: 0}))
                 }).catch(error => {
                     console.log(error);
@@ -182,23 +167,15 @@ export function bestSeller(){
 
 //function that loops and calls google books with nyt response
 function promiseItems(arr){
-    // console.log("inside promiseItems");
-    // console.log(arr);
     //if any of the promises fail, promise.all fails as a whole
     return Promise.all(arr.map(function(book){
         return new Promise(function(resolve,reject){
             //I would say do fetchSearchSuccess after you've gotten the data you need from google books
-            // console.log(book);
-            // console.log(book['isbns'][0]['isbn13']);
             let info = "intitle:"+book['title']+"+inauthor:"+book['author'];
-            // console.log("what is info");
-            // console.log(info);
             fetch('/bestseller-cover/'+info)
                 .then(handleErrors)
                 .then(res=> res.json())
                 .then(json=>{
-                    console.log(json);
-                    console.log("hi");
                     resolve(json);
                 }).catch(error => {
                     console.log(error);
