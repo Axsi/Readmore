@@ -7,7 +7,6 @@ import {
     FETCH_SEARCH_ERROR,
     FRESH_SEARCH,
     IMAGE_LOAD,
-    // BEST_SELLER_NYT,
     ORDER_BY_NEW,
     HEADER_SELECTION
 } from "./action-types";
@@ -95,6 +94,29 @@ export function fetchSearchBar(input){
     }
 }
 
+export function fetchReleaseYear(info){
+    console.log(info);
+    return dispatch=>{
+        dispatch(fetchSearchBegin());
+        return fetch('/releaseyear/'+info.year+'/'+info.month)
+            .then(handleErrors)
+            .then(res => res.json())
+            .then(json =>{
+                // console.log(json.results.books);
+                // console.log("inside the fetch of fetchReleaseYear");
+                promiseItems(json.results.books).then(data =>{
+                    let arr = [];
+                    for(let i = 0 ; i < data.length; i++){
+                        arr.push(data[i].items[0]);
+                    }
+                    // console.log(arr);
+                    // console.log(total);
+                    dispatch(fetchSearchSuccess({items: arr, totalItems: 0}))
+                })
+            }).catch(error => dispatch(fetchSearchError(error)))
+    }
+}
+
 export function fetchScroll(info){
     return dispatch=>{
         dispatch(fetchSearchBegin());
@@ -111,13 +133,18 @@ export function fetchScroll(info){
             }).catch(error => dispatch(fetchSearchError(error)));
     }
 }
+
 export function newBooks(info){
     return dispatch=>{
         dispatch(fetchSearchBegin());
+        console.log("Inside newBooks");
+        console.log(info);
         return fetch("/newbooks/"+info.subject+"/"+info.orderBy+"/"+info.language)
             .then(handleErrors)
             .then(res=> res.json())
             .then(json=>{
+                console.log("RETURN");
+                console.log(json);
                 dispatch(fetchSearchSuccess({items: json.items, totalItems: json.totalItems}));
 
             }).catch(error=>dispatch(fetchSearchError(error)));
@@ -137,10 +164,10 @@ export function bestSeller(){
                     // console.log(data);
                     //loop below fixes structure of return due to multiple calls brought into one array
                     let arr = [];
-                    for(let i = 0 ; i < 15; i++){
+                    for(let i = 0 ; i < data.length; i++){
                         arr.push(data[i].items[0]);
                     }
-                    console.log(arr);
+                    // console.log(arr);
                     // console.log(total);
                     dispatch(fetchSearchSuccess({items: arr, totalItems: 0}))
                 }).catch(error => {
@@ -170,7 +197,7 @@ function promiseItems(arr){
                 .then(handleErrors)
                 .then(res=> res.json())
                 .then(json=>{
-                    // console.log(json);
+                    console.log(json);
                     console.log("hi");
                     resolve(json);
                 }).catch(error => {

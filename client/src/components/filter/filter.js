@@ -6,17 +6,22 @@ import ReleaseYear from './releaseyear';
 import Rating from './rating';
 import { connect } from "react-redux";
 import { filterVisibility} from "../../redux/actions";
+import menuButtons from '../hoc/menubuttons';
+
+import menus from '../hoc/menus';
 
 class Filter extends React.Component{
     constructor(props){
         super(props);
     }
     render(){
+        const GenresButton = menuButtons(Genres);
+        const ReleaseButton = menuButtons(ReleaseYear);
         return(
             <div id="Filter-Container" style={this.props.filterBar ? {display: ""} : {display: "none"}}>
                 <ul id="Filter-Nav">
-                    <Genres />
-                    <ReleaseYear />
+                    <GenresButton />
+                    <ReleaseButton />
                     <Rating />
                     <li>
                         <button id="Reset-Filters">

@@ -15,9 +15,10 @@
     align-items: center;
     margin: 0;
     padding: 0;
-    background: #f4f1ea;
+    background: #eae6de;
     border-radius: 3px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    /*#eae5da*/
 }
 
 #Filter-Nav li{
@@ -44,17 +45,101 @@
     border: 1px solid #beb7b3;
     width: 82px;
 }
+#Genres-Menu, #Release-Menu{
+    position: absolute;
+    top: 100px;
+    background-color: #f4f1ea;
+    z-index: 5;
+    width: 270px;
+    list-style: none;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    /*animation: fadeinout 0.5s linear forwards;*/
+    animation: fadein 0.2s;
+    /*left: 283px;*/
+    height: 200px;
+    padding: 10px
+}
+
+#Genres-Menu::before, #Release-Menu::before{
+    position:absolute;
+    display:block;
+    content:"";
+    background-color: #f4f1ea;
+    border: 1px solid #f4f1ea;
+    width: 16px;
+    height: 16px;
+    transform: rotate(45deg);
+    left: 68px;
+    top: -5px;
+}
+
+#Genre-Options-Container{
+    width:100%;
+    height:80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Genre-Options{
+    width: 40%;
+    border: 1px solid #beb7b3;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Genre-Mark{
+    width: 19px;
+    height: 18px;
+    padding-top: 3px;
+}
+
+#Genre-Mark-Checked{
+
+}
 
 #ReleaseYear-Button{
     border: 1px solid #beb7b3;
     width: 120px;
 }
 
+/*#Release-Menu{*/
+
+/*}*/
+
 #Rating{
     border: 1px solid #beb7b3;
     width: 82px;
 }
 
+.Menu-Header{
+    height: 20%;
+    width: 100%;
+}
+
+.Menu-Title{
+    font-size: 23px;
+    color: #4a3d24;
+    cursor: default;
+}
+
+#Slider-Container{
+
+}
+
+#Slider-Form{
+
+}
+
+#Release-Submit{
+
+}
+
+.Slider{
+    cursor: grab;
+    touch-action:  pan-y;
+    width: 80%;
+}
 
 .Filter-Span{
     margin-right: 5px;
@@ -77,9 +162,20 @@
     height: 30px;
     width: 80px;
     border: none;
-    background-color: #f4f1ea;
+    background-color: #eae6de;
     color: #aca49f;
     font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
     cursor: pointer;
     font-size: 14px;
 }
+
+@keyframes fadein {
+    from { opacity: 0;}
+    to {opacity: 1;}
+}
+
+/*@keyframes fadeinout {*/
+/*    0% {opacity: 0;}*/
+/*    50% {opacity: 1;}*/
+/*    100% {opacity: 0;}*/
+/*}*/

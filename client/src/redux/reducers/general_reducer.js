@@ -1,5 +1,5 @@
 const initialState = {
-    filterBar: false,
+    filterBar: false
 };
 
 function generalReducer(state = initialState, action){

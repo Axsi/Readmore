@@ -1,8 +1,8 @@
 const initialState = {
     searchInput:'',
-    subject:'fiction',
+    subject:'Fiction',
     orderBy: 'newest',
-    headerSelection:"New",
+    headerSelection:'New',
     language: 'en',
     scrollIndex:0,
     books: [],
@@ -11,7 +11,8 @@ const initialState = {
     loading: false,
     imageLoading: false,
     // scrollLoading: false,
-    error: null
+    error: null,
+
 };
 
 function searchReducer(state = initialState, action){
@@ -40,6 +41,7 @@ function searchReducer(state = initialState, action){
                 books: [],
                 scrollIndex: 0,
                 orderBy:'relevance',
+                subject: '',
                 headerSelection: action.payload.headerSelection
             };
         case 'ORDER_BY_NEW':

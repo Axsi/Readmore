@@ -27,6 +27,25 @@ router.get('/searchbar/:input/:language', function(req, res){
     //now to make the call...wait i dont really have to do route/store for outside api calls do i.... if it was related to database then it would be a different story
 });
 
+router.get('/releaseyear/:year/:month', function(req, res){
+    // console.log("HM?");
+    // console.log( req.params);
+    let month = '';
+    if(req.params.month < 10){
+        month = '0'+req.params.month;
+    }else{
+        month = req.params.month;
+    }
+    fetch("https://api.nytimes.com/svc/books/v3/lists/"+req.params.year+"-"+month+"-12/hardcover-fiction.json?api-key="+process.env.NYT_KEY)
+        .then(res => res.json())
+        .then(data => {
+            res.status(200).json(data);
+        }).catch(err =>{
+            console.log(err);
+            res.sendStatus(404);
+    })
+});
+
 router.get('/scroll/:input?/:index/:subject/:orderBy/:language', function(req, res){
     // console.log("inside scroll router");
     // console.log(req.params);
@@ -55,7 +74,7 @@ router.get('/scroll/:input?/:index/:subject/:orderBy/:language', function(req, r
 router.get('/newbooks/:subject/:orderBy/:language', function(req, res){
     // console.log("newbooks router.get before the fetch");
     // console.log(req.params);
-    fetch("https://www.googleapis.com/books/v1/volumes?q=subject:fiction&orderBy=newest&filter=partial&langRestrict="+req.params.language+"&printType=books&maxResults=36&key="+process.env.API_KEY)
+    fetch("https://www.googleapis.com/books/v1/volumes?q=subject:"+req.params.subject+"&orderBy=newest&filter=partial&langRestrict="+req.params.language+"&printType=books&maxResults=36&key="+process.env.API_KEY)
         .then(res=> res.json())
         .then(data =>{
             // console.log("inside newbooks router.get");
@@ -68,6 +87,7 @@ router.get('/newbooks/:subject/:orderBy/:language', function(req, res){
 });
 
 router.get('/bestseller', function(req, res){
+    // console.log("inside bestseller");
     fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key='+process.env.NYT_KEY)
         .then(res => res.json())
         .then( data=>{
@@ -79,8 +99,8 @@ router.get('/bestseller', function(req, res){
 });
 
 router.get('/bestseller-cover/:info', function(req, res){
-    // console.log("inside bestseller-cover");
-    // console.log(req.params.info);
+    console.log("inside bestseller-cover");
+    console.log(req.params.info);
     fetch("https://www.googleapis.com/books/v1/volumes?q="+req.params.info+"&maxResults=1&key="+process.env.API_KEY)
         .then(res => res.json())
         .then(data => {

@@ -14,11 +14,11 @@ class NewBooks extends React.Component{
         event.preventDefault();
         console.log("clicked handle new books");
         // this.props.fresh();
-        this.props.orderByNew({genre: 'fiction', headerSelection: event.target.text});
+        this.props.orderByNew({genre: 'Fiction', headerSelection: event.target.text}); // genre needs to be changed.... instead of having manual input
         console.log(this.props.orderBy);
         this.props.imageLoad(true);
         this.props.newBooks({
-            subject: this.props.subject,
+            subject: 'Fiction',
             orderBy: this.props.orderBy,
             language: this.props.language
         });

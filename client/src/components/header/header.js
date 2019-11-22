@@ -22,7 +22,8 @@ class Header extends React.Component{
                 <ul id="Header-Nav">
                     <li id="Site-Logo">
                         <Link to={{pathname: "/"}} id="Site-Title"
-                              onClick={orderByNew({genre:'fiction', headerSelection: 'New'})}>
+                              // to={orderByNew({genre:'fiction', headerSelection: 'New'})}
+                        >
                             <img id="Title-Img" src={TitleImg}/>
                         </Link>
                     </li>
