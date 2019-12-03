@@ -1,0 +1,124 @@
+#Book-Page-Container{
+    width: 750px;
+    margin: 20px auto 0 auto;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+
+#Side-Container{
+    width: 150px;
+    height: 300px;
+    margin-right: 20px;
+}
+
+#Book-Page-Cover{
+    width: 150px;
+    height: 231px;
+    animation: fadein 0.5s;
+    /*border: 1px solid #4a3d24;*/
+    box-sizing: border-box;
+
+    word-wrap: break-word;
+}
+
+
+#Book-Preview{
+
+}
+
+#Book-Info-Container{
+    height: 100%;
+}
+
+#Book-Metadata-Container{
+    height: 100%;
+    width: 80%;
+    font-family: "Merriweather", "Georgia", serif;
+}
+
+#Book-Title{
+    margin: 0;
+    color: #333333;
+    font-size: 24px;
+}
+
+#Book-Author, #By{
+    color: #333333;
+    font-size: 17px;
+    margin: 5px 0 0 0;
+    font-weight: lighter
+}
+
+#Book-Rating{
+
+}
+
+#Book-Description{
+    margin: 10px 0 0 0;
+    border-bottom: 1px solid #ddd;
+    /*padding: 10px;*/
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+#Truncated-Description{
+
+}
+
+#Full-Description{
+
+}
+
+#TypeOf-Display{
+    cursor: pointer;
+    color: #00635d;
+}
+#TypeOf-Display:hover{
+    text-decoration: underline;
+}
+
+#Extra-Details-Container{
+    color: #555;
+    font-weight: lighter;
+    font-size: 13px;
+    /*padding: 0 10px 10px 10px;*/
+    padding-bottom: 10px;
+    margin: 10px 0 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+#Page-Number{
+
+}
+
+#Published{
+
+}
+
+#Publisher{
+
+}
+
+#ISBN{
+
+}
+
+#Author-Bio-Container{
+
+}
+
+@keyframes fadein {
+    from { opacity: 0;}
+    to {opacity: 1;}
+}
+
+.Spinner{
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+}

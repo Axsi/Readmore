@@ -12,7 +12,6 @@ const initialState = {
     imageLoading: false,
     // scrollLoading: false,
     error: null,
-
 };
 
 function searchReducer(state = initialState, action){
@@ -42,7 +41,12 @@ function searchReducer(state = initialState, action){
                 scrollIndex: 0,
                 orderBy:'relevance',
                 subject: '',
-                headerSelection: action.payload.headerSelection
+                // headerSelection: action.payload.headerSelection
+            };
+        case 'HEADER_SELECTION':
+            return{
+                ...state,
+                headerSelection: action.payload
             };
         case 'ORDER_BY_NEW':
             return{
@@ -51,7 +55,7 @@ function searchReducer(state = initialState, action){
                 books: [],
                 scrollIndex: 0,
                 subject: action.payload.genre,
-                headerSelection: action.payload.headerSelection
+                // headerSelection: action.payload.headerSelection
             };
         case 'FETCH_SEARCH_BEGIN':
             return {

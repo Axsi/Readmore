@@ -19,13 +19,13 @@ router.get('/searchbar/:input/:language', function(req, res){
 });
 
 router.get('/releaseyear/:year/:month', function(req, res){
-    let month = '';
-    if(req.params.month < 10){
-        month = '0'+req.params.month;
-    }else{
-        month = req.params.month;
+
+    let month = parseInt(req.params.month) + 1;
+
+    if(month < 10){
+        month = '0'+month;
     }
-    fetch("https://api.nytimes.com/svc/books/v3/lists/"+req.params.year+"-"+month+"-12/hardcover-fiction.json?api-key="+process.env.NYT_KEY)
+    fetch("https://api.nytimes.com/svc/books/v3/lists/"+req.params.year+"-"+month+"-01/hardcover-fiction.json?api-key="+process.env.NYT_KEY)
         .then(res => res.json())
         .then(data => {
             res.status(200).json(data);
@@ -92,16 +92,31 @@ router.get('/bestseller-cover/:info', function(req, res){
 
 });
 
+router.get('/bookpage/:volumeId', function(req, res){
+    console.log("Inside bookpage/volumeId");
+    console.log(req.params.volumeId);
+    fetch("https://www.googleapis.com/books/v1/volumes/"+req.params.volumeId+"?key="+process.env.API_KEY)
+        .then(res => res.json())
+        .then(data => {
+            console.log("within the router.get of bookpage's fetch result");
+            console.log(data);
+            res.status(200).json(data);
+        } ).catch(err =>{
+            console.log(err);
+            res.sendStatus(404);
+    })
+});
+
 function generalSearch(data){
+    // console.log(data);
     if(data.totalItems > 0){
     let keys = Object.keys(data.items);
     let books = data.items;
-        console.log("generalSearch");
     for(let i = 0; i < keys.length; i++){
         // console.log(books[i]['volumeInfo']['imageLinks']);
         //TODO:Issue where sometimes thumbnail might not exist in the return fetch, it seems setting filter=partial, will avoid those books
             if (books[i]['volumeInfo']['imageLinks']) {
-                console.log(books[i]['volumeInfo']['imageLinks']);
+                // console.log(books[i]['volumeInfo']['imageLinks']);
                 let q = queryString.parseUrl(books[i]['volumeInfo']['imageLinks']['thumbnail']);
                 q.query.zoom = '2';
                 books[i]['volumeInfo']['imageLinks']['thumbnail'] = q.url + '?' + queryString.stringify(q.query);

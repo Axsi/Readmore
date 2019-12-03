@@ -17,6 +17,7 @@
 .Book-Article{
     width: 150px;
     height: 220px;
+    cursor: pointer;
 }
 
 /*.Hide-Books{*/
@@ -33,8 +34,8 @@
     border: 1px solid #4a3d24;
     animation: fadein 0.5s;
     box-sizing: border-box;
-    position:absolute;
-    z-index: -1;
+    /*position:absolute;*/
+    /*z-index: -1;*/
 }
 
 @keyframes fadein {

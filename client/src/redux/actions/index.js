@@ -32,6 +32,12 @@ export function freshSearch(payload){
         payload: payload
     }
 }
+export function headerSelection(payload){
+    return {
+        type: HEADER_SELECTION,
+        payload: payload
+    }
+}
 export function orderByNew(payload){
     return {
         type: ORDER_BY_NEW,
@@ -84,21 +90,26 @@ export function fetchSearchBar(input){
 }
 
 export function fetchReleaseYear(info){
-    console.log(info);
+    // console.log("hi");
+    // console.log(info);
     return dispatch=>{
         dispatch(fetchSearchBegin());
         return fetch('/releaseyear/'+info.year+'/'+info.month)
             .then(handleErrors)
             .then(res => res.json())
             .then(json =>{
+                // console.log(json);
                 // console.log(json.results.books);
                 // console.log("inside the fetch of fetchReleaseYear");
                 promiseItems(json.results.books).then(data =>{
                     let arr = [];
                     for(let i = 0 ; i < data.length; i++){
-                        arr.push(data[i].items[0]);
+                        if(data[i] !== undefined){
+                            arr.push(data[i].items[0]);
+                        }
                     }
-                    // console.log(arr);
+                    console.log("fetchReleaseYear");
+                    console.log(arr);
                     // console.log(total);
                     dispatch(fetchSearchSuccess({items: arr, totalItems: 0}))
                 })
@@ -126,8 +137,6 @@ export function fetchScroll(info){
 export function newBooks(info){
     return dispatch=>{
         dispatch(fetchSearchBegin());
-        console.log("Inside newBooks");
-        console.log(info);
         return fetch("/newbooks/"+info.subject+"/"+info.orderBy+"/"+info.language)
             .then(handleErrors)
             .then(res=> res.json())
@@ -146,13 +155,15 @@ export function bestSeller(){
             .then(handleErrors)
             .then(res=> res.json())
             .then(json => {
+                console.log(json);
                 promiseItems(json.results.books).then(data=>{
                     //loop below fixes structure of return due to multiple calls brought into one array
+                    // console.log(data);
                     let arr = [];
                     for(let i = 0 ; i < data.length; i++){
-                        console.log(i);
-                            console.log(data[i].items[0]);
-                            arr.push(data[i].items[0]);
+                        if(data[i] !== undefined){
+                                arr.push(data[i].items[0]);
+                        }
                     }
                     dispatch(fetchSearchSuccess({items: arr, totalItems: 0}))
                 }).catch(error => {
@@ -161,13 +172,30 @@ export function bestSeller(){
                 })
                 // dispatch(fetchSearchSuccess({items: json.results.books}))
 
+            }).catch(error=>{
+                console.log(error);
+                dispatch(fetchSearchError(error));
             })
     }
 }
 
+// export function fetchBookPage(volumeId){
+//     return dispatch=>{
+//         dispatch(fetchSearchBegin());
+//         return fetch("/bookpage/"+ volumeId)
+//             .then(handleErrors)
+//             .then(res => res.json())
+//             .then(json=>{
+//                 console.log("back in actions bookpage");
+//                 console.log(json);
+//             })
+//     }
+// }
+
 //function that loops and calls google books with nyt response
 function promiseItems(arr){
     //if any of the promises fail, promise.all fails as a whole
+    console.log(arr); //CAN WE DO IT BEFORE THE PROMISE???
     return Promise.all(arr.map(function(book){
         return new Promise(function(resolve,reject){
             //I would say do fetchSearchSuccess after you've gotten the data you need from google books
@@ -176,14 +204,19 @@ function promiseItems(arr){
                 .then(handleErrors)
                 .then(res=> res.json())
                 .then(json=>{
+                    // console.log(json);
+                    // console.log(json);
                     resolve(json);
-                }).catch(error => {
-                    console.log(error);
-                    reject(error);
+                }).catch(() => {//////////////its here man!!!!!!!!!!!!!!!
+                    // console.log(error);
+                    // reject(error);
+                    resolve(undefined) //on results with no bookcover, we want the promise.all to pass so we resolve these types to undefined and deal with it with if statement after
             })
 
         })
-    }))
+    })).catch(error =>{
+        console.log(error);
+    })
 }
 //For handling HTTP errors, fetch doesnt?
 //currently errors are not being used anywhere with fetchSearchError, apparently we have to render them in component or console.log them there??

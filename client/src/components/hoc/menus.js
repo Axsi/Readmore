@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { newBooks, freshSearch, imageLoad, orderByNew, fetchReleaseYear } from "../../redux/actions";
+import { newBooks, freshSearch, imageLoad, orderByNew, fetchReleaseYear, headerSelection } from "../../redux/actions";
 
 
 function menus(Component){
@@ -8,8 +8,8 @@ function menus(Component){
         constructor(props){
             super(props);
             this.state = {
-                year: 2015,
-                month: 6
+                year: 2014,
+                month: 5
             };
             this.setWrapperRef = this.setWrapperRef.bind(this);
             this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -28,7 +28,8 @@ function menus(Component){
         handleReleaseSubmit(event){
             event.preventDefault();
             console.log("inside handleReleaseSubmit");
-            this.props.fresh({headerSelection: 'BestSeller'});
+            this.props.fresh();
+            this.props.selection('BestSeller');
             this.props.imageLoad(true);
             this.props.releaseYear({
                 year: this.state.year,
@@ -66,7 +67,8 @@ function menus(Component){
             console.log("INSIDE HANDLE SELECTION");
             console.log(selection);
             // this.props.fresh({headerSelection:'New'});
-            this.props.orderByNew({genre: selection, headerSelection:'New' });  //change the headerSelection later so it does not entered manually, same for genre
+            this.props.orderByNew({genre: selection});  //change the headerSelection later so it does not entered manually, same for genre
+            this.props.selection('New');
             this.props.imageLoad(true);
             this.props.newBooks({
                 subject: selection,
@@ -104,10 +106,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         newBooks: (info) => dispatch(newBooks(info)),
-        fresh: (selection) => dispatch(freshSearch(selection)),
+        fresh: () => dispatch(freshSearch()),
         orderByNew: (info) => dispatch(orderByNew(info)),
         imageLoad: (status) => dispatch(imageLoad(status)),
-        releaseYear: (info) => dispatch(fetchReleaseYear(info))
+        releaseYear: (info) => dispatch(fetchReleaseYear(info)),
+        selection: (selection) => dispatch(headerSelection(selection))
     }
 };
 

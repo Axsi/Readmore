@@ -17,13 +17,13 @@ class BookGrid extends React.Component{
     }
     componentDidMount() {
         window.addEventListener('scroll', this.onScroll, false);
-        this.props.imageLoad(true);
-        this.props.newBooks({
-            subject: this.props.subject,
-            orderBy: 'newest',
-            // orderBy: this.props.orderBy,
-            language: this.props.language
-        })
+        // this.props.imageLoad(true);
+        // this.props.newBooks({
+        //     subject: this.props.subject,
+        //     orderBy: 'newest',
+        //     // orderBy: this.props.orderBy,
+        //     language: this.props.language
+        // })
 
     }
 
@@ -51,11 +51,12 @@ class BookGrid extends React.Component{
         }
     };
 
+
     renderImage(book){
         return (
             (book['volumeInfo']['imageLinks'] ?
                 <article className="Book-Article" key={book['id']+book['etag']}>
-                    <Link to={"/"} className="Book-Link">
+                    <Link to={{pathname:"/bookpage/"+book['id']}} className="Book-Link">
                         <img className="Book-Cover" src={book['volumeInfo']['imageLinks']['smallThumbnail']}
                              onLoad={this.imageStatus}/>
                     </Link>

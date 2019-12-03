@@ -19,6 +19,7 @@
     border-radius: 3px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
     /*#eae5da*/
+    z-index: 999;
 }
 
 #Filter-Nav li{
@@ -124,21 +125,58 @@
 }
 
 #Slider-Container{
-
+    text-align: center;
+    display:block;
 }
 
 #Slider-Form{
 
 }
 
-#Release-Submit{
+#Year, #Month{
+    margin: 0;
+    display: block;
+    text-align: center;
+    width: 97%;
+    color: #4a3d24;
+    font-size: 16px;
 
 }
 
+
+#Release-Submit{
+    display: block;
+    margin-top: 25px;
+    border: 1px solid #beb7b3;
+    width: 30%;
+    height: 25px;
+    text-align: center;
+}
+
 .Slider{
+    -webkit-appearance: none;
+    apperance: none;
     cursor: grab;
     touch-action:  pan-y;
-    width: 80%;
+    width: 97%;
+    background-color: #4f3b2d;
+    border: 1px solid #beb7b3;
+}
+
+.Slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    background-color: #dbd1d1;
+    height: 14px;
+    width: 14px;
+}
+
+.Slider::-moz-range-thumb{
+    border-radius: 50%;
+    background-color: #dbd1d1;
+    height: 13px;
+    width: 13px;
 }
 
 .Filter-Span{

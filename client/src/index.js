@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Switch, Route, BrowserRouter as Router} from "react-router-dom";
 import HomePage from './homepage';
+import BookPage from './components/bookpage/bookpage';
 import { Provider } from 'react-redux';
 import store from './redux/store/index';
 
@@ -11,7 +12,7 @@ const routing = (
         <Router>
             <div>
                 <Route exact path="/" component={HomePage}/>
-
+                <Route path="/bookpage/:id" component={BookPage} />
             </div>
         </Router>
     </Provider>

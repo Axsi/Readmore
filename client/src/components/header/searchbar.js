@@ -2,7 +2,8 @@ import React from 'react';
 import {Link, withRouter} from "react-router-dom";
 import '../../style/header.css';
 import { connect } from 'react-redux';
-import {filterVisibility, searchBarInput, fetchSearchBar, freshSearch, imageLoad} from "../../redux/actions";
+import {filterVisibility, searchBarInput, fetchSearchBar, freshSearch, imageLoad,
+    headerSelection} from "../../redux/actions";
 import magnify from '../../assets/mangify.png';
 import filter from '../../assets/funnel.png';
 
@@ -18,7 +19,8 @@ class SearchBar extends React.Component{
         // console.log("We are inside handleSearch");
         // console.log(this.props.searchInput);
         if(this.props.searchInput !== ''){
-            this.props.fresh({headerSelection: ''});
+            this.props.fresh();
+            this.props.selection('');
             this.props.imageLoad(true);
             this.props.searchBar({
                 searchInput:this.props.searchInput,
@@ -67,7 +69,8 @@ const mapDispatchToProps = dispatch =>{
       searchChange: (event)=> dispatch(searchBarInput(event)),
       searchBar: (info) => dispatch(fetchSearchBar(info)),
       fresh: (selection) => dispatch(freshSearch(selection)),
-      imageLoad: (status) => dispatch(imageLoad(status))
+      imageLoad: (status) => dispatch(imageLoad(status)),
+      selection: (selection) => dispatch(headerSelection(selection))
   }
 };
 
